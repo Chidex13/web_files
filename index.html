@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>LOGIN</title>
+    </head>
+    <style>
+       body {
+            overflow: hidden;
+            background-color: #355E3B;
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin: 0;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            padding: 0;
+            margin: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        #page_content{
+            box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.493);
+            width: fit-content;
+            display: flex;
+            justify-content: center;
+        }
+
+        #welcomepart{
+            background-color: white;
+            padding: 30px;
+            border: 2px solid;
+            border: none; 
+            width: 350px;
+            height: 380px;
+        }
+
+        #welcomepart p{
+            font-weight: bold;
+            margin-left: 4px;
+            font-family:  Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            font-size: 18px;
+            line-height: 24px;
+            text-align: justify;
+            color: #355E3B;
+        }
+
+        #welcomepart h2{
+            color: #355E3B;
+            margin-top: 50px;
+            text-align: center;
+            margin-left: 4px;
+            font-size: 38px;
+        }
+
+        form{
+            border: 2px solid;
+            border: none;
+            padding: 30px;
+            width: 350px;
+            height: 380px;
+        }
+
+        form #submit {
+            color: #355E3B;
+            font-weight: bold;
+            font-size: 15px;
+            border: none;
+            margin-top: 22px;
+            margin-bottom: 18px;
+            padding: 14px 20px;
+            border-radius: 20px;
+            background-color: #66a86f;
+            cursor: pointer;
+        }
+
+       form div{
+            width: fit-content;
+            height: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 0;
+       }
+        
+
+        form input {
+            outline: none;
+            font-size: 15px;
+            height: 18px;
+            color: white;
+            background-color: #355e3b00;
+            border: none;
+            padding: 2px;
+            border-bottom: 2px solid white;
+            padding-top: 4px;
+        }
+
+        form input[type = "text"]{
+            margin-bottom: 18px;
+        }
+
+        form input:focus{
+            border-color: #66a86f;
+        }
+
+        form label{
+            color: white;
+            font-size: 17px; 
+        }
+
+        form #header{
+            text-align: center;
+            font-size: 46px;
+            font-weight: bolder;
+            margin-bottom: 29px;
+            margin-top: 0;
+            color: white;
+        }
+
+         #message1{
+            height: 17px;
+            margin-top: 18px;
+            color: rgb(219, 70, 70);
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .shake_animie{
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+        }
+
+        #message2{
+            color: white;
+        }
+
+        #message2 a{
+            color: rgb(102, 190, 161);
+            text-decoration: none;
+        }
+    </style>
+
+    <body>
+
+    <div id="page_content">
+
+        
+        <div id="welcomepart">
+            <h2>Welcome!</h2>
+            <p>Login or create an account to view our page and experience the 
+            best loaning services that offers the best customer satisfaction you need. </p>
+        </div>
+
+
+        <form method="post" onsubmit="verifylogin(event)">
+            <div id="header">
+                Login
+            </div>
+            <br>
+            
+                <div class="username">
+                    <label for="username">Username</label>
+                    <br>
+                    <input type="text" id="username" minlength="6" required
+                    autocomplete="username">
+
+                </div>
+                
+                <br>
+                <div class="pass">
+                    <label for="password">Password</label>
+                    <br>
+                    <input type="password" id="password" required>
+                </div>
+
+                <div id="message1">
+    
+                </div>
+
+                <div>
+                    <button type="submit"  id="submit">Submit</button>
+                </div>
+                
+                <br>
+
+                <div id="message2">
+                    Dont have an account?<a href="Sign_up.html"> Signup</a>
+                </div>
+
+        </form>
+
+       </div>
+
+       
+
+        <script>
+            function verifylogin() {
+                event.preventDefault();
+                
+                var username = document.getElementById('username').value;
+                var pass = document.getElementById('password').value;
+                var message = document.getElementById('message1');
+                var limit = 0;
+
+                var Database = {
+                    user_name : ['Chidera', 'Obarido' , 'Damilare' ],
+
+                    password : ['Chidera94' , 'Obarido32' , 'Damilare56']
+                };
+                
+                var login = false;
+                for(var x=0; x < Database.user_name.length; x++){
+                    if (username === Database.user_name[x] && pass === Database.password[x]) {
+                        login = true;
+
+                        break;
+                    }
+                }
+
+               if (login) {
+                message.innerHTML = 'Login Successful';
+                setTimeout(function () {
+
+                window.location.href = 'blank.html'; 
+                }, 1500);
+               }
+               else{
+                limit++
+                message.innerHTML = 'Invalid username/password';
+
+                message.classList.add('shake_animie');
+
+                // Remove the 'shake-animation' class after the animation completes
+                message.addEventListener('animationend', function() {
+                message.classList.remove('shake_animie');
+                  });
+                }
+
+            }
+        </script>
+    </body>
+</html>
